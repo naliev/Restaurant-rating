@@ -2,13 +2,14 @@ package com.naliev.restaurantrating.model;
 
 public abstract class AbstractBaseEntity {
     protected Integer id;
+    public static final int START_SEQ = 100000;
 
     protected AbstractBaseEntity() {
 
     }
 
     protected AbstractBaseEntity(Integer id) {
-
+        this.id = id;
     }
 
     public void setId(Integer id) {
