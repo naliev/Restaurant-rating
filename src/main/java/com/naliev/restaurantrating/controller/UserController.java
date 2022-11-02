@@ -1,8 +1,8 @@
-package com.naliev.restaurantrating.service;
+package com.naliev.restaurantrating.controller;
 
 import com.naliev.restaurantrating.model.User;
 import com.naliev.restaurantrating.repository.UserRepository;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 
 import java.util.List;
@@ -10,11 +10,11 @@ import java.util.List;
 import static com.naliev.restaurantrating.util.ValidationUtil.checkNotFound;
 import static com.naliev.restaurantrating.util.ValidationUtil.checkNotFoundWithId;
 
-@Service
-public class UserService {
+@Controller
+public class UserController {
     private final UserRepository repository;
 
-    public UserService(UserRepository repository) {
+    public UserController(UserRepository repository) {
         this.repository = repository;
     }
 
