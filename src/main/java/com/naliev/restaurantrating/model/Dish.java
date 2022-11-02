@@ -1,6 +1,19 @@
 package com.naliev.restaurantrating.model;
 
+import org.hibernate.validator.constraints.Range;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+
+@Entity
+@Table(name = "dish")
 public class Dish extends AbstractNamedEntity {
+
+    @Column(name = "price", nullable = false)
+    @Range(min = 10, max = 100000)
+    @NotBlank
     int price;
 
     public Dish() {

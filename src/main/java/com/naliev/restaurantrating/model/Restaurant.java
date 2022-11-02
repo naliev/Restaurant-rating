@@ -1,10 +1,14 @@
 package com.naliev.restaurantrating.model;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Table(name = "restaurant")
 public class Restaurant extends AbstractNamedEntity {
+
+    @OneToMany(mappedBy = "id")
     private List<Dish> menu;
-    private List<Vote> rating;
 
     public Restaurant() {
     }
@@ -23,13 +27,5 @@ public class Restaurant extends AbstractNamedEntity {
 
     public void setMenu(List<Dish> menu) {
         this.menu = menu;
-    }
-
-    public List<Vote> getRating() {
-        return rating;
-    }
-
-    public void setRating(List<Vote> rating) {
-        this.rating = rating;
     }
 }

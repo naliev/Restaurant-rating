@@ -1,32 +1,52 @@
 package com.naliev.restaurantrating.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "vote")
 public class Vote extends AbstractBaseEntity {
-    private Integer userId;
+
+    @Column(name = "date_time", columnDefinition = "timestamp", nullable = false)
+    @NotNull
     private LocalDateTime dateTime;
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private User user;
+
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "restaurant_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Restaurant restaurant;
 
     public Vote() {
     }
 
     public Vote(Vote v) {
-        this(v.getId(), v.getUserId(), v.getDateTime(), v.getRestaurant());
+        this(v.getId(), v.getUser(), v.getDateTime(), v.getRestaurant());
     }
 
-    public Vote(Integer id, Integer userId, LocalDateTime dateTime, Restaurant r) {
+    public Vote(Integer id, User user, LocalDateTime dateTime, Restaurant r) {
         super(id);
-        this.userId = userId;
+        this.user = user;
         this.dateTime = dateTime;
         this.restaurant = r;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public LocalDateTime getDateTime() {
