@@ -53,5 +53,4 @@ CREATE TABLE dish
     name          VARCHAR(100) NOT NULL,
     price         INTEGER      NOT NULL,
     CONSTRAINT fk_dish_restaurant FOREIGN KEY (restaurant_id) REFERENCES restaurant (id) On DELETE CASCADE
-
 );
