@@ -15,7 +15,7 @@ VALUES ('USER', 100000),
        ('ADMIN', 100001);
 
 INSERT INTO restaurant (id, name)
-VALUES (100002, 'Tasty and that""s it'),
+VALUES (100002, 'Tasty and that''s it'),
        (100003, 'Praga restaurant');
 
 INSERT INTO VOTE (restaurant_id, user_id, date_time)
