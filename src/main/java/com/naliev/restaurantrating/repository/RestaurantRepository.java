@@ -14,5 +14,5 @@ public interface RestaurantRepository {
 
     List<Restaurant> getAll();
 
-    boolean delete(int id);
+    boolean delete(int id, int userId);
 }
