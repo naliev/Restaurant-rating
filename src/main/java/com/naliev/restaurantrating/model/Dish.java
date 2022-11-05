@@ -2,9 +2,7 @@ package com.naliev.restaurantrating.model;
 
 import org.hibernate.validator.constraints.Range;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity
@@ -16,6 +14,10 @@ public class Dish extends AbstractNamedEntity {
     @NotBlank
     int price;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "restaurant_id", nullable = false)
+    private Restaurant restaurant;
+
     public Dish() {
     }
 
@@ -23,9 +25,20 @@ public class Dish extends AbstractNamedEntity {
         this(d.getId(), d.getName(), d.getPrice());
     }
 
+    public Dish(String name, int price) {
+        super(null, name);
+        this.price = price;
+    }
+
     public Dish(Integer id, String name, int price) {
         super(id, name);
         this.price = price;
+    }
+
+    public Dish(Integer id, String name, int price, Restaurant restaurant) {
+        super(id, name);
+        this.price = price;
+        this.restaurant = restaurant;
     }
 
     public int getPrice() {
@@ -34,5 +47,13 @@ public class Dish extends AbstractNamedEntity {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 }
