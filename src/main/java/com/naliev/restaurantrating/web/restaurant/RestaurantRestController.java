@@ -2,15 +2,15 @@ package com.naliev.restaurantrating.web.restaurant;
 
 import com.naliev.restaurantrating.model.Restaurant;
 import com.naliev.restaurantrating.repository.RestaurantRepository;
-import com.naliev.restaurantrating.util.ValidationUtil;
-import com.naliev.restaurantrating.web.SecurityUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
-import static com.naliev.restaurantrating.util.ValidationUtil.*;
+import static com.naliev.restaurantrating.util.ValidationUtil.assureIdConsistent;
+import static com.naliev.restaurantrating.util.ValidationUtil.checkNew;
 
 @Controller
 public class RestaurantRestController {
@@ -22,31 +22,30 @@ public class RestaurantRestController {
     }
 
     public Restaurant create(Restaurant r) {
-        int userId = SecurityUtil.authUserId();
+        log.info("create {} ", r);
         checkNew(r);
-        log.info("create {} by user {}", r, userId);
-        return repository.save(r, userId);
+        return repository.save(r);
     }
 
     public void update(Restaurant r, int id) {
-        int userId = SecurityUtil.authUserId();
+        log.info("update {} ", r);
+        repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Restaurant with id: " + id + "not found"));
         assureIdConsistent(r, id);
-        log.info("update {} by user {}", r, userId);
-        repository.update(r, userId);
+        repository.save(r);
     }
 
     public Restaurant get(int id) {
-        log.info("get by id {} for user {}", id, SecurityUtil.authUserId());
-        return ValidationUtil.checkNotFound(repository.get(id), "restaurant not found");
+        log.info("get by id {}", id);
+        return repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Restaurant with id: " + id + "not found"));
     }
 
     public List<Restaurant> getAll() {
-        log.info("get all restaurants for user {}", SecurityUtil.authUserId());
-        return repository.getAll();
+        log.info("get all restaurants");
+        return repository.findAll(Sort.by(Sort.Direction.ASC, "name"));
     }
 
     public void delete(int id) {
-        int userId = SecurityUtil.authUserId();
-        repository.delete(id, userId);
+        repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Restaurant with id: " + id + "not found"));
+        repository.deleteById(id);
     }
 }

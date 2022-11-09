@@ -34,12 +34,13 @@ public class UserRestController {
 
     public void delete(int id) {
         log.info("delete {}", id);
-        repository.delete(id);
+        repository.deleteById(id);
     }
 
     public User get(int id) {
         log.info("get {}", id);
-        return repository.get(id);
+        return repository.findById(id).orElseThrow(() -> new IllegalArgumentException("User with id: " + id + "not found")
+        );
     }
 
     public User getByEmail(String email) {
@@ -49,6 +50,6 @@ public class UserRestController {
 
     public List<User> getAll() {
         log.info("getAll");
-        return repository.getAll();
+        return repository.findAll();
     }
 }
