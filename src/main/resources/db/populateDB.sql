@@ -18,7 +18,7 @@ INSERT INTO restaurant (id, name)
 VALUES (100002, 'Tasty and that''s it'),
        (100003, 'Praga restaurant');
 
-INSERT INTO VOTE (restaurant_id, user_id, date_time)
+INSERT INTO VOTE (restaurant_id, user_id, date)
 VALUES (100002, 100000, NOW()),
        (100003, 100000, NOW() - INTERVAL '1' DAY),
        (100002, 100000, NOW() - INTERVAL '2' DAY),
