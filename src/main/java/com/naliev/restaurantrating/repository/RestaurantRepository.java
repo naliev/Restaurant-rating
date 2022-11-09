@@ -1,18 +1,15 @@
 package com.naliev.restaurantrating.repository;
 
 import com.naliev.restaurantrating.model.Restaurant;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
-public interface RestaurantRepository {
-
-    Restaurant save(Restaurant r, int userId);
-
-    Restaurant update(Restaurant r, int userId);
-
-    Restaurant get(int id);
-
-    List<Restaurant> getAll();
-
-    boolean delete(int id, int userId);
+@Transactional(readOnly = true)
+public interface RestaurantRepository extends JpaRepository<Restaurant, Integer> {
+    @Query("SELECT DISTINCT r from Restaurant r JOIN FETCH r.menu")
+    List<Restaurant> getAllWithMenu(LocalDate date);
 }
