@@ -5,7 +5,6 @@ import com.naliev.restaurantrating.model.User;
 import com.naliev.restaurantrating.model.Vote;
 import com.naliev.restaurantrating.repository.VoteRepository;
 import com.naliev.restaurantrating.util.exception.NotFoundException;
-import com.naliev.restaurantrating.web.SecurityUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
