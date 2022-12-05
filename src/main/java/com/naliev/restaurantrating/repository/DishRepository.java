@@ -16,4 +16,8 @@ public interface DishRepository extends JpaRepository<Dish, Integer> {
 
     @Query("SELECT d FROM Dish d WHERE d.restaurant.id=?1 ORDER BY d.name")
     List<Dish> getAll(int restaurantId);
+
+    boolean existsByIdAndRestaurantId(int dishId, int restaurantId);
+
+    void deleteExisted(int dishId);
 }
