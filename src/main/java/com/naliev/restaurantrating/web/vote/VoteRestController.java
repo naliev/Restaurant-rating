@@ -7,7 +7,6 @@ import com.naliev.restaurantrating.repository.VoteRepository;
 import com.naliev.restaurantrating.util.exception.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,7 +15,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-@Controller
+@RestController
 public class VoteRestController {
     private static final Logger log = LoggerFactory.getLogger(VoteRestController.class);
     private final VoteRepository repository;
