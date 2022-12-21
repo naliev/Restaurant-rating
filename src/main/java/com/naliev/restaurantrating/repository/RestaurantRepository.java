@@ -7,9 +7,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Transactional(readOnly = true)
 public interface RestaurantRepository extends JpaRepository<Restaurant, Integer> {
     @Query("SELECT DISTINCT r from Restaurant r JOIN FETCH r.menu")
     List<Restaurant> getAllWithMenu(LocalDate date);
+
+    @Query("SELECT r FROM Restaurant r JOIN FETCH r.menu d WHERE d.date=:date AND r.id=:id")
+    Optional<Restaurant> getByIdAndDateWithMenu(int id, LocalDate date);
 }
